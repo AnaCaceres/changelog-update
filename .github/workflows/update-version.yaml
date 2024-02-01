@@ -64,9 +64,9 @@ jobs:
         run: |
           version="${{ env.tag_name }}"
           version=${version#"v"}
-          RELEASE_NOTES=$(awk -v version="$version" '/## \['$version'\]/,/^## \[/' ./docs/CHANGELOG.md | sed '1,/### /d' | head -n -1)
+          RELEASE_NOTES=$(awk '/## \['$version'\]/,/^## \[/' ./docs/CHANGELOG.md)
           echo "$RELEASE_NOTES"
-          echo "notes=$RELEASE_NOTES" >> $GITHUB_ENV Can you help me to fix it?
+          echo "release_notes=$RELEASE_NOTES" >> $GITHUB_ENV
 
       - name: Create release
         if: ${{env.should_add_last_changes_to_master == 'true'}}
