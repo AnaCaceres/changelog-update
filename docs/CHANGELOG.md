@@ -10,6 +10,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - Run sh script in github action.
+- dsfsadasd
+- asdsd
+- asdad
 
 ## [6.0.35] - 2024-02-01
 

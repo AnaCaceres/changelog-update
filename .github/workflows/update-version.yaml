@@ -64,7 +64,7 @@ jobs:
         run: |
           version="${{ env.tag_name }}"
           version=${version#"v"}
-          RELEASE_NOTES=$(sed -n "/^## \[$version\]/,/^## \[/p" ./docs/CHANGELOG.md | sed '1d;$d')
+          RELEASE_NOTES=$(sed -n "/^## \[$version\]/,/^## \[/p" ./docs/CHANGELOG.md | sed '1d;$d' | sed '1d')
           echo "release_notes=$RELEASE_NOTES" >> $GITHUB_ENV
 
       - name: Create release
