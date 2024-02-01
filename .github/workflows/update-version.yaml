@@ -1,10 +1,13 @@
 name: Update changelog
 
 on:
-  pull_request:
-    types: [closed]
+  # pull_request:
+  #   types: [closed]
+  #   branches:
+  #     - main
+  push:
     branches:
-      - main
+     - '**'
 
 jobs:
   update-changelog:
@@ -62,7 +65,7 @@ jobs:
           RELEASE_NOTES=$(awk -v version="$version" '/## \['$version'\]/,/^## \[/' ./docs/CHANGELOG.md | sed '1,/### /d' | head -n -1)
           echo "$RELEASE_NOTES"
           echo "notes=$RELEASE_NOTES" >> $GITHUB_ENV
-          $(cat ./docs/CHANGELOG.md)
+          cat ./docs/CHANGELOG.md
 
       - name: Create release
         if: ${{env.should_add_last_changes_to_master == 'true'}}
