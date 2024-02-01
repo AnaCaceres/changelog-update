@@ -62,12 +62,10 @@ jobs:
       - name: Extract release notes
         id: extract_notes
         run: |
-          version="${{ env.tag_name }}"
-          version="${version#v}"
-          RELEASE_NOTES=$(awk -v version="$version" '/## \['$version'\]/,/^## \[/' ./docs/CHANGELOG.md | sed '1,/### /d' | head -n -1)
-          echo $RELEASE_NOTES
+          tag_name="${{ env.tag_name }}"
+          VERSION="${tag_name#v}"
+          RELEASE_NOTES=$(awk -v version="$VERSION " '/## \['$version'\]/,/^## \[/' ./docs/CHANGELOG.md | sed '1,/### /d' | head -n -1)
           echo "notes=$RELEASE_NOTES" >> $GITHUB_ENV
-          echo $version
 
       - name: Create release
         if: ${{env.should_add_last_changes_to_master == 'true'}}
