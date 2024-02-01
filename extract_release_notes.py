@@ -1,7 +1,7 @@
 def get_changelog_content():
     with open('VERSION', 'r') as version_file:
         version = version_file.read().split('v')[1].strip()
-        
+
     with open('./docs/CHANGELOG.md', 'r') as changelog_file:
         changelog = changelog_file.read()
 
@@ -18,7 +18,9 @@ def get_changelog_content():
     else:
         version_content = changelog[version_start + 1:version_end]
 
-    return version_content.strip()
+    version_content_without_header = version_content.split('\n', 1)[1]
+
+    return version_content_without_header.strip()
 
 
 version_content = get_changelog_content()
