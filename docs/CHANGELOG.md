@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [6.0.15] - 2024-02-01
+
+### Fixed
+
+- Run python script in github action.
+- Remove v from version in github action.
+- Test what comes in release notes.
+
 ## [6.0.14] - 2024-02-01
 
 ### Fixed
@@ -284,6 +292,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Project created.
 
+[6.0.15]: https://github.com/AnaCaceres/changelog-update/compare/v6.0.15..v6.0.14
 [6.0.14]: https://github.com/AnaCaceres/changelog-update/compare/v6.0.14..v6.0.13
 [6.0.13]: https://github.com/AnaCaceres/changelog-update/compare/v6.0.13..v6.0.12
 [6.0.12]: https://github.com/AnaCaceres/changelog-update/compare/v6.0.12..v6.0.11
