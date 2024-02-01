@@ -59,13 +59,14 @@ jobs:
           tag_exists_error: false
           message: ${{ env.release_message }}
 
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3'
+
       - name: Extract release notes
         id: extract_notes
-        run: |
-          git fetch 
-          chmod 777 extract_release_notes.sh
-          release_notes=$(./extract_release_notes.sh)
-          echo "release_notes=$release_notes" >> $GITHUB_ENV
+        run: python3 extract_release_notes.py
 
       - name: Create release
         if: ${{env.should_add_last_changes_to_master == 'true'}}
