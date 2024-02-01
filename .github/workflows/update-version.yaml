@@ -1,4 +1,4 @@
-name: Changelog steps
+name: Update changelog
 
 on:
   pull_request:
@@ -7,37 +7,36 @@ on:
       - main
 
 jobs:
-  run-on-merge:
+  update-changelog:
     if: github.event.pull_request.merged == true && github.event.pull_request.base.ref == 'main' && github.event.pull_request.head.ref == 'develop'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0
           persist-credentials: false
           ref: main
-          token: ${{ secrets.TOKEN_CHANGELOG }}
-      
-      - name: run-bash-file
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Run bash file
         run: |
           git fetch 
-          chmod 777 script.sh
+          chmod 777 run_update_changelog.sh
           repository_name="$GITHUB_SERVER_URL/$GITHUB_REPOSITORY"
-          should_add_last_changes_to_master=$(./script.sh $repository_name)
-          echo $should_add_last_changes_to_master
+          should_add_last_changes_to_master=$(./run_update_changelog.sh $repository_name)
           echo "should_add_last_changes_to_master=$should_add_last_changes_to_master" >> $GITHUB_ENV
 
-      - name: commit-push-changes
+      - name: Commit push changes
         uses: actions-js/push@master
         if: ${{env.should_add_last_changes_to_master == 'true'}}
         with:
-          github_token: ${{ secrets.TOKEN_CHANGELOG }}
-          message: "Changelog version updated"
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          message: 'Changelog version updated'
           tags: true
-          force: true          
+          force: true
 
-      - name: create tags
+      - name: Create tags
         if: ${{env.should_add_last_changes_to_master == 'true'}}
         run: |
           project_version=$(cat VERSION)
@@ -46,20 +45,39 @@ jobs:
           echo "tag_name=$tag_name" >> $GITHUB_ENV
           echo "release_message=$release_message" >> $GITHUB_ENV
 
-      - name: create-push-tags
+      - name: Create push tag
         if: ${{env.should_add_last_changes_to_master == 'true'}}
-        id: "tag_create"
+        id: 'tag_create'
         uses: rickstaa/action-create-tag@v1
         with:
-          github_token: ${{ secrets.TOKEN_CHANGELOG }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           tag: ${{env.tag_name}}
           tag_exists_error: false
           message: ${{env.release_message}}
 
-      - name: create-develop-branch
+      - name: Extract release notes
+        id: extract_notes
+        run: |
+          VERSION=${{env.tag_name}}
+          RELEASE_NOTES=$(awk -v version="$VERSION" '/## \['$VERSION'\]/,/^## \[/' ./docs/CHANGELOG.md | sed '1,/### /d' | head -n -1)
+          echo "::set-output name=notes::$RELEASE_NOTES"
+
+      - name: Create release
+        if: ${{env.should_add_last_changes_to_master == 'true'}}
+        uses: actions/create-release@v1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          tag_name: ${{env.tag_name}}
+          release_name: Release ${{env.tag_name}}
+          body: ${{ steps.extract_notes.outputs.notes }}
+          draft: false
+          prerelease: false
+
+      - name: Update develop branch
+        if: ${{env.should_add_last_changes_to_master == 'true'}}
         uses: morbalint/git-merge-action@v1
         with:
-          target: "develop"
-          source: "main"
-          token: ${{ secrets.TOKEN_CHANGELOG }}
-          strategy_options: "ours"
+          target: 'develop'
+          source: 'main'
+          token: ${{ secrets.GITHUB_TOKEN }}
+          strategy_options: 'ours'
