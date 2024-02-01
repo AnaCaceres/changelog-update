@@ -62,6 +62,7 @@ jobs:
       - name: Extract release notes
         id: extract_notes
         run: |
+          git fetch 
           chmod 777 extract_release_notes.py
           release_notes=$(python3 ./extract_release_notes.py)
           echo "release_notes=$release_notes" >> $GITHUB_ENV
