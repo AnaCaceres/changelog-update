@@ -67,7 +67,7 @@ jobs:
       - name: Extract release notes
         id: extract_notes
         run: |
-          release_notes=$(python3 extract_release_notes.py)
+          python3 extract_release_notes.py >> release_notes
           echo "release_notes=$release_notes" >> $GITHUB_ENV
 
       - name: Create release
