@@ -23,7 +23,4 @@ def get_changelog_content():
     return version_content_without_header.strip()
 
 
-version_content = get_changelog_content()
-
-if version_content:
-    print(version_content)
+get_changelog_content()
