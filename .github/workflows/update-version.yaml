@@ -63,6 +63,7 @@ jobs:
         id: extract_notes
         run: |
           version="${{ env.tag_name }}"
+          version="${version#v}"
           RELEASE_NOTES=$(awk -v version="$version" '/## \['$version'\]/,/^## \[/' ./docs/CHANGELOG.md | sed '1,/### /d' | head -n -1)
           echo "$RELEASE_NOTES"
           echo "notes=$RELEASE_NOTES" >> $GITHUB_ENV
