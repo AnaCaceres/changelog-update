@@ -66,7 +66,9 @@ jobs:
 
       - name: Extract release notes
         id: extract_notes
-        run: python3 extract_release_notes.py
+        run: |
+          release_notes=$(python3 extract_release_notes.py)
+          echo "release_notes=$release_notes" >> $GITHUB_ENV
 
       - name: Create release
         if: ${{env.should_add_last_changes_to_master == 'true'}}
