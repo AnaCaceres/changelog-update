@@ -5,6 +5,36 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [6.0.34] - 2024-02-01
+
+### Fixed
+
+- Run sh script in github action.
+
+## [6.0.33] - 2024-02-01
+
+### Fixed
+
+- Run sh script in github action.
+
+## [6.0.32] - 2024-02-01
+
+### Fixed
+
+- Run sh script in github action.
+
+## [6.0.31] - 2024-02-01
+
+### Fixed
+
+- Run sh script in github action.
+
+## [6.0.30] - 2024-02-01
+
+### Fixed
+
+- Run sh script in github action.
+
 ## [6.0.29] - 2024-02-01
 
 ### Fixed
@@ -378,6 +408,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Project created.
 
+[6.0.34]: https://github.com/AnaCaceres/changelog-update/compare/v6.0.34..v6.0.33
+[6.0.33]: https://github.com/AnaCaceres/changelog-update/compare/v6.0.33..v6.0.32
+[6.0.32]: https://github.com/AnaCaceres/changelog-update/compare/v6.0.32..v6.0.31
+[6.0.31]: https://github.com/AnaCaceres/changelog-update/compare/v6.0.31..v6.0.30
+[6.0.30]: https://github.com/AnaCaceres/changelog-update/compare/v6.0.30..v6.0.29
 [6.0.29]: https://github.com/AnaCaceres/changelog-update/compare/v6.0.29..v6.0.28
 [6.0.28]: https://github.com/AnaCaceres/changelog-update/compare/v6.0.28..v6.0.27
 [6.0.27]: https://github.com/AnaCaceres/changelog-update/compare/v6.0.27..v6.0.26
