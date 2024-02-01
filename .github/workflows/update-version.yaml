@@ -63,7 +63,7 @@ jobs:
         id: extract_notes
         run: |
           git fetch 
-          chmod 777 extract_release_notes.py
+          chmod 777 extract_release_notes.sh
           release_notes=$(./extract_release_notes.sh)
           echo "release_notes=$release_notes" >> $GITHUB_ENV
 
