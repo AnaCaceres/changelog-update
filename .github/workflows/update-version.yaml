@@ -64,8 +64,9 @@ jobs:
         run: |
           version="${{ env.tag_name }}"
           version=${version#"v"}
-          sed -n "/^## \[$version\]/,/^## \[/p" ./docs/CHANGELOG.md > release_notes.txt
-          echo "release_notes=$(cat release_notes.txt)" >> $GITHUB_ENV
+          RELEASE_NOTES=$(sed -n "/^## \[$version\]/,/^## \[/p" ./docs/CHANGELOG.md)
+          echo $RELEASE_NOTES
+          echo "release_notes=$RELEASE_NOTES" >> $GITHUB_OUTPUT
 
       - name: Create release
         if: ${{env.should_add_last_changes_to_master == 'true'}}
@@ -75,7 +76,6 @@ jobs:
         with:
           tag_name: ${{env.tag_name}}
           release_name: Release ${{env.tag_name}}
-          body: ${{ env.release_notes }}
           draft: false
           prerelease: false
 
