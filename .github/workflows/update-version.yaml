@@ -64,8 +64,7 @@ jobs:
         run: |
           version="${{ env.tag_name }}"
           version=${version#"v"}
-          RELEASE_NOTES=$(sed -n "/^## \[$version\]/,/^## \[/p" ./docs/CHANGELOG.md | sed '1d;$d' | sed '1d')
-          echo -e $RELEASE_NOTES >> ./docs/release_notes.md
+          echo -e $(sed -n "/^## \[$version\]/,/^## \[/p" ./docs/CHANGELOG.md | sed '1d;$d' | sed '1d') >> ./docs/release_notes.md
           cat ./docs/release_notes.md      
 
       - name: Create release
