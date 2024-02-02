@@ -47,7 +47,6 @@ jobs:
 
       - name: Create push tag
         if: ${{ env.should_add_last_changes_to_master == 'true' }}
-        id: 'tag_create'
         uses: rickstaa/action-create-tag@v1
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
@@ -61,9 +60,7 @@ jobs:
           python-version: '3.x'
 
       - name: Extract release notes
-        id: extract_notes
-        run: |
-          python3 extract_release_notes.py >> ./docs/release_notes.md
+        run: python3 extract_release_notes.py >> ./docs/release_notes.md
 
       - name: Create release
         if: ${{ env.should_add_last_changes_to_master == 'true' }}
