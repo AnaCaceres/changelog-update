@@ -20,10 +20,7 @@ def get_changelog_content():
 
     version_content_without_header = version_content.split('\n', 1)[1]
 
-    return version_content_without_header.strip()
+    return version_content_without_header
 
 
-version_content = get_changelog_content()
-
-if version_content:
-    print(version_content)
+print(get_changelog_content())
