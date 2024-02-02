@@ -77,7 +77,7 @@ jobs:
         with:
           tag_name: ${{ env.tag_name }}
           release_name: Release ${{ env.tag_name }}
-          body: $RELEASE_NOTES
+          body: ${{ env.release_notes }}
           draft: false
           prerelease: false
 
