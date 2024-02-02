@@ -20,10 +20,7 @@ def get_changelog_content():
 
     version_content_without_header = version_content.split('\n', 1)[1]
 
-    with open('./docs/release_notes.md', 'w') as release_notes_file:
-        release_notes_file.write(version_content_without_header)
-
     return version_content_without_header
 
 
-get_changelog_content()
+print(get_changelog_content())
