@@ -77,7 +77,7 @@ jobs:
         with:
           tag_name: ${{ env.tag_name }}
           release_name: Release ${{ env.tag_name }}
-          body: ${{ env.release_notes }}
+          body_path: ./docs/CHANGELOG.md
           draft: false
           prerelease: false
 
