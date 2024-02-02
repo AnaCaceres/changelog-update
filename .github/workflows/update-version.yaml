@@ -66,6 +66,7 @@ jobs:
           version=${version#"v"}
           RELEASE_NOTES=$(sed -n "/^## \[$version\]/,/^## \[/p" ./docs/CHANGELOG.md | sed '1d;$d' | sed '1d')
           echo $RELEASE_NOTES >> ./docs/release_notes.md
+          cat ./docs/release_notes.md      
 
       - name: Create release
         if: ${{ env.should_add_last_changes_to_master == 'true' }}
