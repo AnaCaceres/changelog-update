@@ -67,6 +67,7 @@ jobs:
       - name: Extract release notes
         id: extract_notes
         run: |
+          touch ./docs/release_notes.md
           python3 extract_release_notes.py
 
       - name: Create release
