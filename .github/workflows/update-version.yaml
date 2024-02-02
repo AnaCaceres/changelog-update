@@ -59,14 +59,16 @@ jobs:
           tag_exists_error: false
           message: ${{ env.release_message }}
 
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+
       - name: Extract release notes
         id: extract_notes
         run: |
-          version="${{ env.tag_name }}"
-          version=${version#"v"}
-          echo $(sed -rn "/^## \[$version\]/,/^## \[/p" ./docs/CHANGELOG.md | sed '1d;$d' | sed '1d')
-          echo -e $(sed -rn "/^## \[$version\]/,/^## \[/p" ./docs/CHANGELOG.md | sed '1d;$d' | sed '1d') >> ./docs/release_notes.md
-          cat ./docs/release_notes.md      
+          release_notes=$(python3 extract_release_notes.py)
+          echo $release_notes >> ./docs/release_notes.md
 
       - name: Create release
         if: ${{ env.should_add_last_changes_to_master == 'true' }}
